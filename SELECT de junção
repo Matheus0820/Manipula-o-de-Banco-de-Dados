@@ -1,0 +1,28 @@
+CREATE TABLE clima (
+    cidade          varchar(60),
+    temp_min        int,           -- temperatura mínima
+    temp_max        int,           -- temperatura máxima
+    prcp            float4,        -- precipitação
+    data            date
+);
+
+INSERT INTO clima VALUES( 'Natal', 20,  34, 10.5, '2013-08-09');
+INSERT INTO clima VALUES('Natal', 21,  29,17.8, '2013-07-08');
+INSERT INTO clima VALUES( 'Macaiba', 32,  19, 0 , '2013-08-09');
+INSERT INTO clima VALUES( 'Monte das Gameleiras', 16,  35, 0, '2013-07-08');
+
+
+CREATE TABLE cidades (
+    nome            varchar(60),
+    localizacao     point
+);
+
+INSERT INTO cidades VALUES('Natal', '(6,40)');
+INSERT INTO cidades VALUES('Monte das Gameleiras', '(6.1, 41)');
+INSERT INTO cidades VALUES('Macaíba', '(35, 5)');
+
+SELECT * FROM clima, cidades WHERE cidade = nome;
+
+ALTER TABLE clima ADD temp_medio float4;
+
+UPDATE clima SET temp_medio = (temp_min * temp_max)/2;
