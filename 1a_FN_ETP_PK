@@ -1,0 +1,36 @@
+CREATE TABLE pedidos (
+	num_ped		int2 PRIMARY KEY,
+	data		date,
+	cod_cli		int2,
+	cliente		varchar(8),
+	endereco	varchar(20),
+	rg			int4
+	);
+	INSERT INTO pedidos VALUES(2,'2011-09-01',10,'MARLA','RUA DOS CACTOS, 27',1159719);
+	INSERT INTO pedidos VALUES(5,'2011-9-5',12,'KEYLA','RUA DO JUÁ, 34',1120702);
+	
+	SELECT * FROM pedidos;
+	
+	CREATE TABLE vendas (
+	num_ped		int2 REFERENCES pedidos(num_ped),
+	cod_prod	int2,
+	descricao	varchar(30),
+	quant		float4,
+	preco		float4, 
+	subtotal	float4, 
+	total_geral float4 
+	);
+	
+	INSERT INTO vendas VALUES(2,10,'BISCOITO MARIA',10.00,1.30,13.00,303.80);
+	INSERT INTO vendas VALUES(2,11,'CUSCUZ VITAMILHO',18.00,1.00,18.00,303.80);
+	INSERT INTO vendas VALUES(2,14,'CHARQUE PONTA DE AGULHA',15.00,7.00,105.00,303.80);
+	INSERT INTO vendas VALUES(2,15,'ARROZ TIO JOÃO',20.00,2.00,40.00,303.80);
+	INSERT INTO vendas VALUES(2,16,'FEIJÃO KERO-KERO',30.00,3.50,105.00,303.80);
+	INSERT INTO vendas VALUES(2,17,'FARINHA BREJEIRA',12.00,1.90,22.80,303.80);
+	INSERT INTO vendas VALUES(5,10,'BISCOITO MARIA',10.00,1.30,13.00,180.80);
+	INSERT INTO vendas VALUES(5,15,'ARROZ TIO JOÃO',20.00,2.00,40.00,180.80);
+	INSERT INTO vendas VALUES(5,16,'FEIJÃO KERO-KERO',30.00,3.50,105.00,180.80);
+	INSERT INTO vendas VALUES(5,17,'FARINHA BREJEIRA',12.00,1.90,22.80,180.80);
+	
+	SELECT * FROM vendas;
+	
