@@ -1,0 +1,76 @@
+-- Database: Manipulando String e Data e Hora
+
+-- DROP DATABASE "Manipulando String e Data e Hora";
+
+CREATE DATABASE "Manipulando String e Data e Hora"
+    WITH 
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'Portuguese_Brazil.1252'
+    LC_CTYPE = 'Portuguese_Brazil.1252'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1;
+	
+	CREATE TABLE palavras (
+		id int2, 
+		pal_orig	varchar(20), 
+		fnc_transf	varchar(15), 
+		result_num	int4, 
+		result_alfa	varchar(20)
+	);
+	
+	SELECT * FROM palavras; 
+	
+	INSERT INTO palavras VALUES(1, 'jose', 'bit_length');
+	UPDATE palavras SET result_num = bit_length(pal_orig) WHERE id = 1;
+	
+	INSERT INTO palavras VALUES(2, 'jose', 'char_length');
+	UPDATE palavras SET result_num = char_length(pal_orig) WHERE id = 2;
+	
+	INSERT INTO palavras VALUES(3, 'JOSE', 'lower');
+	UPDATE palavras SET result_alfa = lower(pal_orig) WHERE id = 3; 
+	
+	INSERT INTO palavras VALUES(4, 'ABACATE', 'position');
+	UPDATE palavras SET result_num = position(pal_orig IN 'CA') WHERE id = 4; 
+	
+	INSERT INTO palavras VALUES(5, 'banana', 'upper');
+	UPDATE palavras SET result_alfa = upper(pal_orig) WHERE id = 5; 
+	
+	INSERT INTO palavras VALUES(6, 'B', 'ascii');
+	UPDATE palavras SET result_num = ascii(pal_orig) WHERE id = 6;
+	
+	INSERT INTO PALAVRAS VALUES (7, '', 'chr',66); 
+	UPDATE palavras SET result_alfa = chr(result_num) WHERE id = 7;
+	
+	INSERT INTO palavras VALUES(8, 'jose FELIPE', 'initcap');
+	UPDATE palavras SET result_alfa = initcap(pal_orig) WHERE id = 8;
+	
+	INSERT INTO palavras VALUES(9, 'jose FELIPE', 'reverse');
+	UPDATE palavras SET result_alfa = reverse(pal_orig) WHERE id = 9; 
+	
+	
+	CREATE TABLE temporalidade(
+		id int2,
+		idade varchar(30), 
+		data 	date, 
+		data_atual date, 
+		hora_atual time,
+		hora_local time
+	);
+	
+	
+	SELECT * FROM temporalidade; 
+	
+	INSERT INTO temporalidade VALUES(1, '', '1989-01-01');
+	UPDATE temporalidade SET idade = age(data) WHERE id = 1;
+	
+	INSERT INTO temporalidade VALUES(2, '', '2005-08-08');
+	UPDATE temporalidade SET idade = age(data) WHERE id = 2;
+	
+	
+	UPDATE temporalidade SET data_atual = current_date; 
+	UPDATE temporalidade SET hora_atual = current_time; 
+	UPDATE temporalidade SET hora_local = localtime; 
+	
+	
+	
