@@ -92,14 +92,14 @@ mail_owner = postfix
 # other configuration parameters.
 #
 #myhostname = host.domain.tld
-#myhostname = virtual.domain.tld
+myhostname = virtual.domain.tld
 
 # The mydomain parameter specifies the local internet domain name.
 # The default is to use $myhostname minus the first component.
 # $mydomain is used as a default value for many other configuration
 # parameters.
 #
-#mydomain = domain.tld
+mydomain = domain.tld
 
 # SENDING MAIL
 # 
@@ -115,7 +115,7 @@ mail_owner = postfix
 # to recipient addresses that have no @domain part.
 #
 #myorigin = $myhostname
-#myorigin = $mydomain
+myorigin = $mydomain
 
 # RECEIVING MAIL
 
@@ -132,10 +132,10 @@ mail_owner = postfix
 #inet_interfaces = all
 #inet_interfaces = $myhostname
 #inet_interfaces = $myhostname, localhost
-inet_interfaces = localhost
+inet_interfaces = all
 
 # Enable IPv4, and IPv6 if supported
-inet_protocols = all
+inet_protocols = ipv4
 
 # The proxy_interfaces parameter specifies the network interface
 # addresses that this mail system receives mail on by way of a
@@ -180,7 +180,7 @@ inet_protocols = all
 #
 # See also below, section "REJECTING MAIL FOR UNKNOWN LOCAL USERS".
 #
-mydestination = $myhostname, localhost.$mydomain, localhost
+mydestination = $myhostname, localhost.$mydomain, localhost, $mydomain
 #mydestination = $myhostname, localhost.$mydomain, localhost, $mydomain
 #mydestination = $myhostname, localhost.$mydomain, localhost, $mydomain,
 #	mail.$mydomain, www.$mydomain, ftp.$mydomain
@@ -280,7 +280,7 @@ unknown_local_recipient_reject_code = 550
 # of listing the patterns here. Specify type:table for table-based lookups
 # (the value on the table right-hand side is not used).
 #
-#mynetworks = 168.100.3.0/28, 127.0.0.0/8
+mynetworks = 168.100.3.0/28, 127.0.0.0/8 #MODIFICAR PARA O IP LOCAL
 #mynetworks = $config_directory/mynetworks
 #mynetworks = hash:/etc/postfix/network_table
 
@@ -435,7 +435,7 @@ alias_database = hash:/etc/aliases
 # "Maildir/" for qmail-style delivery (the / is required).
 #
 #home_mailbox = Mailbox
-#home_mailbox = Maildir/
+home_mailbox = Maildir/
  
 # The mail_spool_directory parameter specifies the directory where
 # UNIX-style mailboxes are kept. The default setting depends on the
@@ -590,7 +590,7 @@ alias_database = hash:/etc/aliases
 #
 #smtpd_banner = $myhostname ESMTP $mail_name
 #smtpd_banner = $myhostname ESMTP $mail_name ($mail_version)
-
+smtpd_banner = $myhostname ESMTP
 # PARALLEL DELIVERY TO THE SAME DESTINATION
 #
 # How many parallel deliveries to the same user or domain? With local
@@ -736,3 +736,13 @@ smtp_tls_CAfile = /etc/pki/tls/certs/ca-bundle.crt
 smtp_tls_security_level = may
 meta_directory = /etc/postfix
 shlib_directory = /usr/lib64/postfix
+
+message_size_limit = 10485760
+mailbox_size_limit = 1073741824
+
+smtpd_sasl_type = dovecot
+smtpd_sasl_path = private/auth
+smtpd_sasl_auth_enable = yes
+smtpd_sasl_security_options = noanonymous
+smtpd_sasl_local_domain = $myhostname
+smtpd_recipient_restrictions = permit_mynetworks, permit_auth_destination, permit_sasl_authenticated, reject
