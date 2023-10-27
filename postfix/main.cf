@@ -133,10 +133,10 @@ myorigin = $mydomain
 #inet_interfaces = all
 #inet_interfaces = $myhostname
 #inet_interfaces = $myhostname, localhost
-inet_interfaces = all
+inet_interfaces = localhost
 
 # Enable IPv4, and IPv6 if supported
-inet_protocols = ipv4
+inet_protocols = all
 
 # The proxy_interfaces parameter specifies the network interface
 # addresses that this mail system receives mail on by way of a
@@ -281,7 +281,7 @@ unknown_local_recipient_reject_code = 550
 # of listing the patterns here. Specify type:table for table-based lookups
 # (the value on the table right-hand side is not used).
 #
-mynetworks = 168.100.3.0/28, 127.0.0.0/8 #MODIFICAR PARA O IP LOCAL
+mynetworks = 192.168.1.147/28, 127.0.0.0/8 #MODIFICAR PARA O IP LOCAL
 #mynetworks = $config_directory/mynetworks
 #mynetworks = hash:/etc/postfix/network_table
 
